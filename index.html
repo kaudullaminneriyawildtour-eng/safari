@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Wild Horizons Safaris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D4A017;
+            --secondary: #2C5F2D;
+            --background: #FDFBF7;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-light: #666666;
+            --button: #D4A017;
+            --button-text: #FFFFFF;
+            --accent: #E85D04;
+            --border: #E5E5E5;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --max-width: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; }
+
+        img { max-width: 100%; display: block; }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 32px; background: var(--button);
+            color: var(--button-text); border: none; border-radius: var(--radius);
+            font-family: var(--font-body); font-size: 16px; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow);
+        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-secondary { background: var(--secondary); }
+        .btn-outline { background: transparent; border: 2px solid var(--button); color: var(--button); }
+        .btn-sm { padding: 10px 20px; font-size: 14px; }
+
+        .section-padding { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 42px; margin-bottom: 16px; color: var(--text); }
+        .section-header p { font-size: 18px; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--secondary); }
+        .logo img { height: 48px; width: auto; border-radius: 8px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+        .nav-links a { font-weight: 500; color: var(--text); transition: color 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            position: relative; overflow: hidden; margin-top: 0;
+        }
+        .hero-bg {
+            position: absolute; inset: 0; z-index: -1;
+            background-size: cover; background-position: center;
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+        .hero .container { position: relative; z-index: 1; padding-top: 80px; }
+        .hero-content { max-width: 700px; color: white; }
+        .hero h1 { font-size: 64px; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 20px; margin-bottom: 40px; opacity: 0.95; line-height: 1.8; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        /* About */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+        .about-img img { width: 100%; height: 500px; object-fit: cover; }
+        .about-content h2 { font-size: 42px; margin-bottom: 24px; }
+        .about-content p { font-size: 18px; color: var(--text-light); margin-bottom: 20px; line-height: 1.8; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        .stat-item { text-align: center; padding: 20px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .stat-item h3 { font-size: 36px; color: var(--primary); margin-bottom: 8px; }
+        .stat-item p { font-size: 14px; color: var(--text-light); margin: 0; }
+
+        /* Safari Packages */
+        .safari-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px; }
+        .safari-card {
+            background: var(--surface); border-radius: var(--radius);
+            overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .safari-card:hover { transform: translateY(-8px); }
+        .safari-img { height: 240px; overflow: hidden; position: relative; }
+        .safari-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .safari-card:hover .safari-img img { transform: scale(1.1); }
+        .safari-badge {
+            position: absolute; top: 16px; right: 16px;
+            background: var(--accent); color: white;
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+        }
+        .safari-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+        .safari-body h3 { font-size: 24px; margin-bottom: 12px; }
+        .safari-meta { display: flex; gap: 16px; margin-bottom: 16px; color: var(--text-light); font-size: 14px; }
+        .safari-meta i { color: var(--primary); }
+        .safari-body p { color: var(--text-light); margin-bottom: 20px; flex: 1; }
+        .safari-features { list-style: none; margin-bottom: 24px; }
+        .safari-features li { padding: 6px 0; font-size: 14px; color: var(--text-light); display: flex; align-items: center; gap: 8px; }
+        .safari-features li i { color: var(--secondary); font-size: 12px; }
+        .safari-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); }
+        .safari-price { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .safari-price span { font-size: 14px; color: var(--text-light); font-weight: 400; }
+
+        /* National Parks */
+        .parks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .park-card {
+            position: relative; border-radius: var(--radius); overflow: hidden;
+            height: 400px; cursor: pointer; box-shadow: var(--shadow);
+        }
+        .park-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .park-card:hover img { transform: scale(1.1); }
+        .park-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 32px;
+            transition: background 0.3s;
+        }
+        .park-card:hover .park-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%); }
+        .park-overlay h3 { color: white; font-size: 28px; margin-bottom: 8px; }
+        .park-overlay p { color: rgba(255,255,255,0.8); font-size: 15px; }
+
+        /* Gallery */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .gallery-item { border-radius: var(--radius); overflow: hidden; height: 280px; cursor: pointer; position: relative; box-shadow: var(--shadow); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item::after {
+            content: '\f002'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.4); color: white; font-size: 24px; opacity: 0; transition: opacity 0.3s;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* FAQ */
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--surface); border-radius: var(--radius); margin-bottom: 16px; box-shadow: var(--shadow); overflow: hidden; }
+        .faq-question {
+            padding: 24px 28px; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; font-weight: 600; font-size: 18px; transition: background 0.3s;
+        }
+        .faq-question:hover { background: rgba(0,0,0,0.02); }
+        .faq-question i { transition: transform 0.3s; color: var(--primary); }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 28px; color: var(--text-light); line-height: 1.8;
+        }
+        .faq-item.active .faq-answer { max-height: 500px; padding: 0 28px 24px; }
+
+        /* Reviews */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px; }
+        .review-card { background: var(--surface); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); position: relative; }
+        .review-stars { color: #FFB800; margin-bottom: 16px; font-size: 14px; }
+        .review-text { font-size: 16px; color: var(--text-light); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+        .reviewer { display: flex; align-items: center; gap: 16px; }
+        .reviewer-img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); }
+        .reviewer-info h4 { font-size: 18px; margin-bottom: 4px; }
+        .reviewer-info p { font-size: 14px; color: var(--text-light); margin: 0; }
+        .quote-icon { position: absolute; top: 24px; right: 24px; font-size: 48px; color: var(--primary); opacity: 0.2; font-family: Georgia, serif; }
+
+        /* Contact */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-info h2 { font-size: 42px; margin-bottom: 24px; }
+        .contact-info > p { font-size: 18px; color: var(--text-light); margin-bottom: 40px; }
+        .contact-item { display: flex; gap: 20px; margin-bottom: 28px; }
+        .contact-icon { width: 56px; height: 56px; background: rgba(212, 160, 23, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px; flex-shrink: 0; }
+        .contact-item h4 { font-size: 18px; margin-bottom: 4px; }
+        .contact-item p { color: var(--text-light); margin: 0; font-size: 15px; }
+        .contact-item a { color: var(--primary); font-weight: 500; }
+        .contact-social { display: flex; gap: 12px; margin-top: 32px; }
+        .contact-social a { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; color: var(--text); box-shadow: var(--shadow); transition: all 0.3s; font-size: 18px; }
+        .contact-social a:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+        .contact-map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 100%; min-height: 400px; }
+        .contact-map iframe { width: 100%; height: 100%; border: none; min-height: 400px; }
+
+        /* Booking Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            padding: 24px; backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--surface); border-radius: var(--radius);
+            max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: modalSlide 0.3s ease;
+        }
+        @keyframes modalSlide { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { padding: 28px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 24px; }
+        .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-light); transition: color 0.3s; }
+        .modal-close:hover { color: var(--accent); }
+        .modal-body { padding: 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px 18px; border: 1px solid var(--border);
+            border-radius: 10px; font-family: var(--font-body); font-size: 15px;
+            background: var(--background); transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed; bottom: 32px; right: 32px; z-index: 999;
+            width: 64px; height: 64px; background: #25D366; color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer; transition: transform 0.3s; animation: pulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); } }
+
+        /* Footer */
+        footer { background: var(--text); color: rgba(255,255,255,0.8); padding: 60px 0 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+        .footer-brand .logo { color: white; margin-bottom: 20px; }
+        .footer-brand p { line-height: 1.8; font-size: 15px; }
+        .footer-col h4 { color: white; font-size: 18px; margin-bottom: 24px; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 12px; }
+        .footer-col a { transition: color 0.3s; font-size: 15px; }
+        .footer-col a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.5); }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 3000; display: none; align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border-radius: 8px; }
+        .lightbox-close { position: absolute; top: 24px; right: 24px; color: white; font-size: 36px; cursor: pointer; background: none; border: none; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 36px; cursor: pointer; background: rgba(255,255,255,0.1); border: none; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-prev { left: 24px; }
+        .lightbox-next { right: 24px; }
+
+        /* Admin Panel */
+        .admin-toggle {
+            position: fixed; bottom: 32px; left: 32px; z-index: 999;
+            background: var(--text); color: white; padding: 14px 24px;
+            border-radius: 50px; cursor: pointer; font-weight: 600;
+            box-shadow: var(--shadow); border: none; font-size: 14px;
+            display: flex; align-items: center; gap: 8px; transition: all 0.3s;
+        }
+        .admin-toggle:hover { background: var(--primary); }
+        .admin-panel {
+            position: fixed; inset: 0; background: var(--background); z-index: 5000;
+            display: none; flex-direction: column;
+        }
+        .admin-panel.active { display: flex; }
+        .admin-header {
+            background: var(--surface); border-bottom: 1px solid var(--border);
+            padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: var(--shadow);
+        }
+        .admin-header h2 { font-size: 24px; display: flex; align-items: center; gap: 12px; }
+        .admin-header h2 i { color: var(--primary); }
+        .admin-nav { display: flex; gap: 8px; }
+        .admin-nav button {
+            padding: 10px 20px; border: none; background: transparent;
+            border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s;
+        }
+        .admin-nav button:hover { background: var(--background); }
+        .admin-nav button.active { background: var(--primary); color: white; }
+        .admin-body { flex: 1; overflow-y: auto; padding: 32px; }
+        .admin-section { max-width: 900px; margin: 0 auto; display: none; }
+        .admin-section.active { display: block; }
+        .admin-section h3 { font-size: 28px; margin-bottom: 8px; }
+        .admin-section > p { color: var(--text-light); margin-bottom: 32px; }
+        .admin-card { background: var(--surface); border-radius: var(--radius); padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow); }
+        .admin-card h4 { font-size: 20px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .admin-form .form-group { margin-bottom: 16px; }
+        .admin-form label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; color: var(--text-light); }
+        .admin-form input, .admin-form select, .admin-form textarea {
+            width: 100%; padding: 12px 16px; border: 1px solid var(--border);
+            border-radius: 8px; font-family: var(--font-body); font-size: 14px; background: var(--background);
+        }
+        .admin-form input:focus, .admin-form select:focus, .admin-form textarea:focus { outline: none; border-color: var(--primary); }
+        .admin-form textarea { min-height: 80px; resize: vertical; }
+        .admin-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .admin-form .form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .color-input-wrapper { display: flex; align-items: center; gap: 12px; }
+        .color-input-wrapper input[type="color"] { width: 48px; height: 40px; border: none; border-radius: 8px; cursor: pointer; padding: 2px; }
+        .color-input-wrapper input[type="text"] { flex: 1; }
+
+        .admin-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+        .admin-actions .btn { padding: 12px 24px; font-size: 14px; }
+        .danger { background: #dc3545 !important; }
+        .success { background: #28a745 !important; }
+        .info { background: #17a2b8 !important; }
+
+        .item-list { margin-top: 20px; }
+        .item-row {
+            display: flex; align-items: center; gap: 12px; padding: 16px;
+            background: var(--background); border-radius: 10px; margin-bottom: 12px;
+            border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .item-row:hover { border-color: var(--primary); }
+        .item-row img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+        .item-row .item-info { flex: 1; }
+        .item-row .item-info h5 { font-size: 16px; margin-bottom: 4px; }
+        .item-row .item-info p { font-size: 13px; color: var(--text-light); margin: 0; }
+        .item-row .item-actions { display: flex; gap: 8px; }
+        .item-row .item-actions button {
+            width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--surface); cursor: pointer; color: var(--text-light);
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .item-row .item-actions button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .item-row .item-actions button.danger-btn:hover { background: #dc3545; border-color: #dc3545; }
+
+        .add-item-btn {
+            width: 100%; padding: 16px; border: 2px dashed var(--border);
+            background: transparent; border-radius: 10px; cursor: pointer;
+            color: var(--text-light); font-weight: 600; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .add-item-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(212, 160, 23, 0.05); }
+
+        .section-toggle { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--background); border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--border); }
+        .section-toggle h5 { font-size: 16px; margin: 0; }
+        .section-toggle p { font-size: 13px; color: var(--text-light); margin: 4px 0 0; }
+        .toggle-switch { position: relative; width: 52px; height: 28px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: #ccc; border-radius: 28px; transition: 0.3s; }
+        .toggle-slider::before { content: ''; position: absolute; height: 22px; width: 22px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+        .toggle-switch input:checked + .toggle-slider { background: var(--primary); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+
+        .order-controls { display: flex; gap: 4px; margin-left: 12px; }
+        .order-controls button { width: 32px; height: 32px; border: 1px solid var(--border); background: var(--surface); border-radius: 6px; cursor: pointer; transition: all 0.3s; }
+        .order-controls button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .toast {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--text); color: white; padding: 16px 32px; border-radius: 50px;
+            font-weight: 500; z-index: 6000; opacity: 0; transition: all 0.4s ease; box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+
+        .empty-state { text-align: center; padding: 48px; color: var(--text-light); }
+        .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: var(--surface); flex-direction: column; padding: 24px; box-shadow: var(--shadow); gap: 16px; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 40px; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .stats { grid-template-columns: 1fr; }
+            .form-row, .admin-form .form-row { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 32px; }
+            .admin-header { flex-direction: column; gap: 16px; padding: 16px; }
+            .admin-nav { overflow-x: auto; width: 100%; padding-bottom: 8px; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo" id="nav-logo">
+                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=100&h=100&fit=crop" alt="Logo" id="nav-logo-img">
+                <span id="nav-business-name">Wild Horizons Safaris</span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#safaris">Safaris</a></li>
+                <li><a href="#parks">Parks</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="btn btn-sm" onclick="openBooking()">Book Now</button></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero" data-section="hero">
+        <div class="hero-bg" id="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&h=1080&fit=crop')"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 id="hero-title">Discover the Wild Heart of Sri Lanka</h1>
+                <p id="hero-subtitle">Experience unforgettable wildlife safaris in Sri Lanka's most stunning national parks. Witness elephants, leopards, and exotic birds in their natural habitat.</p>
+                <div class="hero-buttons">
+                    <button class="btn" onclick="openBooking()" id="hero-btn-primary">Book Your Safari</button>
+                    <a href="#safaris" class="btn btn-outline" id="hero-btn-secondary" style="border-color: white; color: white;">Explore Packages</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section-padding" id="about" data-section="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&h=600&fit=crop" alt="About Us" id="about-image">
+                </div>
+                <div class="about-content">
+                    <h2 id="about-title">About Wild Horizons Safaris</h2>
+                    <p id="about-text">We are a premier safari tour operator dedicated to providing authentic wildlife experiences across Sri Lanka's breathtaking national parks. With over 10 years of expertise, our knowledgeable guides ensure every safari is safe, educational, and unforgettable.</p>
+                    <p id="about-text-2">Our commitment to sustainable tourism means we prioritize the well-being of wildlife and local communities while delivering world-class adventures to our guests from around the globe.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>10+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>5000+</h3>
+                            <p>Happy Travelers</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>15+</h3>
+                            <p>Safari Packages</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safari Packages -->
+    <section class="section-padding" id="safaris" data-section="safaris" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="safaris-title">Safari Packages</h2>
+                <p id="safaris-subtitle">Choose from our carefully curated safari experiences designed for every type of adventurer.</p>
+            </div>
+            <div class="safari-grid" id="safari-grid">
+                <!-- Safari cards rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- National Parks -->
+    <section class="section-padding" id="parks" data-section="parks">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="parks-title">National Parks</h2>
+                <p id="parks-subtitle">Explore Sri Lanka's most renowned wildlife sanctuaries, each offering unique landscapes and incredible biodiversity.</p>
+            </div>
+            <div class="parks-grid" id="parks-grid">
+                <!-- Park cards rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section-padding" id="gallery" data-section="gallery" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="gallery-title">Photo Gallery</h2>
+                <p id="gallery-subtitle">Glimpses of the incredible wildlife and landscapes awaiting you.</p>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery items rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-padding" id="faq" data-section="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="faq-title">Frequently Asked Questions</h2>
+                <p id="faq-subtitle">Everything you need to know before embarking on your safari adventure.</p>
+            </div>
+            <div class="faq-list" id="faq-list">
+                <!-- FAQ items rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="section-padding" id="reviews" data-section="reviews" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="reviews-title">What Our Guests Say</h2>
+                <p id="reviews-subtitle">Real experiences from real travelers who explored the wild with us.</p>
+            </div>
+            <div class="reviews-grid" id="reviews-grid">
+                <!-- Review cards rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section-padding" id="contact" data-section="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 id="contact-title">Get In Touch</h2>
+                    <p id="contact-subtitle">Ready for your adventure? Contact us to plan your perfect safari experience.</p>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+94771234567" id="contact-phone">+94 77 123 4567</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/94771234567" target="_blank" id="contact-whatsapp">+94 77 123 4567</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@wildhorizons.lk" id="contact-email">info@wildhorizons.lk</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Address</h4>
+                            <p id="contact-address">123 Safari Road, Habarana, Sri Lanka</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-social" id="contact-social">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <iframe id="contact-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890123!2d80.12345678901234!3d8.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDcnMjQuNCJOIDgwwrAwNycyNC40IkU!5e0!3m2!1sen!2slk!4v1234567890123!5m2!1sen!2slk" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="color: white;">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=100&h=100&fit=crop" alt="Logo" id="footer-logo-img" style="height: 40px;">
+                        <span id="footer-business-name">Wild Horizons Safaris</span>
+                    </div>
+                    <p id="footer-about">Your trusted partner for unforgettable wildlife safaris in Sri Lanka. Discover nature, respect wildlife, create memories.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#safaris">Safari Packages</a></li>
+                        <li><a href="#parks">National Parks</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Safari Types</h4>
+                    <ul>
+                        <li><a href="#safaris">Jeep Safaris</a></li>
+                        <li><a href="#safaris">Elephant Watching</a></li>
+                        <li><a href="#safaris">Bird Watching</a></li>
+                        <li><a href="#safaris">Photography Tours</a></li>
+                        <li><a href="#safaris">Camping Safaris</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone" style="margin-right: 8px; color: var(--primary);"></i> <span id="footer-phone">+94 77 123 4567</span></li>
+                        <li><i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i> <span id="footer-email">info@wildhorizons.lk</span></li>
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary);"></i> <span id="footer-address">Habarana, Sri Lanka</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footer-copyright">&copy; 2024 Wild Horizons Safaris. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a class="whatsapp-float" id="whatsapp-float" href="https://wa.me/94771234567" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="booking-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-check" style="color: var(--primary); margin-right: 10px;"></i>Book Your Safari</h3>
+                <button class="modal-close" onclick="closeBooking()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="booking-form" onsubmit="handleBooking(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp *</label>
+                        <input type="tel" name="phone" required placeholder="+94 77 123 4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Select Safari Package *</label>
+                        <select name="package" id="booking-package" required>
+                            <option value="">Choose a package...</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Preferred Date *</label>
+                            <input type="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Time *</label>
+                            <select name="time" id="booking-time" required>
+                                <option value="">Select time...</option>
+                                <option value="Morning (5:30 AM - 9:30 AM)">Morning (5:30 AM - 9:30 AM)</option>
+                                <option value="Afternoon (2:30 PM - 6:30 PM)">Afternoon (2:30 PM - 6:30 PM)</option>
+                                <option value="Full Day (5:30 AM - 6:30 PM)">Full Day (5:30 AM - 6:30 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Guests *</label>
+                        <select name="guests" required>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6+">6+ People</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Location / Hotel</label>
+                        <input type="text" name="pickup" placeholder="Your hotel name or address">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Requests</label>
+                        <textarea name="message" placeholder="Any dietary requirements, accessibility needs, or special requests..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center;">
+                        <i class="fab fa-whatsapp"></i> Send Booking via WhatsApp
+                    </button>
+                    <p style="text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-light);">
+                        <i class="fas fa-info-circle"></i> We will confirm your booking within 2 hours
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="Gallery" id="lightbox-img">
+        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Admin Toggle -->
+    <button class="admin-toggle" onclick="toggleAdmin()" id="admin-toggle-btn">
+        <i class="fas fa-cog"></i> Edit Website
+    </button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <h2><i class="fas fa-cog"></i> Website Admin Panel</h2>
+            <div class="admin-nav">
+                <button class="active" onclick="showAdminTab('business')">Business</button>
+                <button onclick="showAdminTab('theme')">Theme</button>
+                <button onclick="showAdminTab('sections')">Sections</button>
+                <button onclick="showAdminTab('safaris')">Safaris</button>
+                <button onclick="showAdminTab('parks')">Parks</button>
+                <button onclick="showAdminTab('gallery')">Gallery</button>
+                <button onclick="showAdminTab('faq')">FAQ</button>
+                <button onclick="showAdminTab('reviews')">Reviews</button>
+                <button onclick="showAdminTab('booking')">Booking</button>
+                <button onclick="showAdminTab('advanced')">Advanced</button>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button class="btn btn-sm" onclick="saveConfig()" style="background: #28a745;"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-sm btn-outline" onclick="closeAdmin()" style="color: var(--text);">Exit Admin</button>
+            </div>
+        </div>
+        <div class="admin-body">
+
+            <!-- Business Tab -->
+            <div class="admin-section active" id="admin-business">
+                <h3>Business Information</h3>
+                <p>Update your business details. These appear across the entire website.</p>
+                <div class="admin-card">
+                    <h4>Basic Info</h4>
+                    <div class="admin-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Business Name</label>
+                                <input type="text" id="biz-name" onchange="updateConfig('business.name', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Logo URL</label>
+                                <input type="text" id="biz-logo" onchange="updateConfig('business.logo', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="biz-phone" onchange="updateConfig('business.phone', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp Number (with country code)</label>
+                                <input type="text" id="biz-whatsapp" onchange="updateConfig('business.whatsapp', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="biz-email" onchange="updateConfig('business.email', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" id="biz-address" onchange="updateConfig('business.address', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Google Maps Embed URL</label>
+                            <input type="text" id="biz-map" onchange="updateConfig('business.mapUrl', this.value)">
+                            <small style="color: var(--text-light);">Paste the embed URL from Google Maps</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>Social Media Links</h4>
+                    <div class="admin-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Facebook</label>
+                                <input type="text" id="biz-facebook" onchange="updateConfig('business.social.facebook', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="text" id="biz-instagram" onchange="updateConfig('business.social.instagram', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>YouTube</label>
+                                <input type="text" id="biz-youtube" onchange="updateConfig('business.social.youtube', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>TripAdvisor</label>
+                                <input type="text" id="biz-tripadvisor" onchange="updateConfig('business.social.tripadvisor', this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme Tab -->
+            <div class="admin-section" id="admin-theme">
+                <h3>Colors & Branding</h3>
+                <p>Customize the visual appearance of your website instantly.</p>
+                <div class="admin-card">
+                    <h4>Color Palette</h4>
+                    <div class="admin-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Primary Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-primary-color" onchange="updateThemeColor('primary', this.value)">
+                                    <input type="text" id="theme-primary-text" onchange="updateThemeColor('primary', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Secondary Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-secondary-color" onchange="updateThemeColor('secondary', this.value)">
+                                    <input type="text" id="theme-secondary-text" onchange="updateThemeColor('secondary', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Background Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-background-color" onchange="updateThemeColor('background', this.value)">
+                                    <input type="text" id="theme-background-text" onchange="updateThemeColor('background', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Text Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-text-color" onchange="updateThemeColor('text', this.value)">
+                                    <input type="text" id="theme-text-text" onchange="updateThemeColor('text', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Button Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-button-color" onchange="updateThemeColor('button', this.value)">
+                                    <input type="text" id="theme-button-text" onchange="updateThemeColor('button', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Accent Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="theme-accent-color" onchange="updateThemeColor('accent', this.value)">
+                                    <input type="text" id="theme-accent-text" onchange="updateThemeColor('accent', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>Typography & Effects</h4>
+                    <div class="admin-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Heading Font</label>
+                                <select id="theme-font-heading" onchange="updateConfig('theme.fontHeading', this.value)">
+                                    <option value="'Playfair Display', serif">Playfair Display (Elegant)</option>
+                                    <option value="'Inter', sans-serif">Inter (Modern)</option>
+                                    <option value="'Georgia', serif">Georgia (Classic)</option>
+                                    <option value="'Montserrat', sans-serif">Montserrat (Bold)</option>
+                                    <option value="'Poppins', sans-serif">Poppins (Friendly)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Body Font</label>
+                                <select id="theme-font-body" onchange="updateConfig('theme.fontBody', this.value)">
+                                    <option value="'Inter', sans-serif">Inter (Clean)</option>
+                                    <option value="'Open Sans', sans-serif">Open Sans (Readable)</option>
+                                    <option value="'Roboto', sans-serif">Roboto (Modern)</option>
+                                    <option value="'Lato', sans-serif">Lato (Warm)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Border Radius</label>
+                                <select id="theme-radius" onchange="updateConfig('theme.borderRadius', this.value)">
+                                    <option value="0px">Sharp (0px)</option>
+                                    <option value="8px">Slight (8px)</option>
+                                    <option value="12px">Medium (12px)</option>
+                                    <option value="20px">Rounded (20px)</option>
+                                    <option value="50px">Pill (50px)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Shadow Intensity</label>
+                                <select id="theme-shadow" onchange="updateConfig('theme.shadowIntensity', this.value)">
+                                    <option value="none">None</option>
+                                    <option value="light">Light</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="heavy">Heavy</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sections Tab -->
+            <div class="admin-section" id="admin-sections">
+                <h3>Website Sections</h3>
+                <p>Show, hide, or reorder sections. Click the arrows to change order.</p>
+                <div class="admin-card">
+                    <h4>Section Visibility & Order</h4>
+                    <div id="sections-list">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>Section Content</h4>
+                    <div class="admin-form">
+                        <div class="form-group">
+                            <label>Hero Title</label>
+                            <input type="text" id="sec-hero-title" onchange="updateConfig('sections.hero.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Hero Subtitle</label>
+                            <textarea id="sec-hero-subtitle" onchange="updateConfig('sections.hero.subtitle', this.value)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Hero Background Image URL</label>
+                            <input type="text" id="sec-hero-image" onchange="updateConfig('sections.hero.image', this.value)">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Primary Button Text</label>
+                                <input type="text" id="sec-hero-btn1" onchange="updateConfig('sections.hero.buttonText', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Secondary Button Text</label>
+                                <input type="text" id="sec-hero-btn2" onchange="updateConfig('sections.hero.buttonSecondary', this.value)">
+                            </div>
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>About Title</label>
+                            <input type="text" id="sec-about-title" onchange="updateConfig('sections.about.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>About Paragraph 1</label>
+                            <textarea id="sec-about-text1" onchange="updateConfig('sections.about.text1', this.value)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>About Paragraph 2</label>
+                            <textarea id="sec-about-text2" onchange="updateConfig('sections.about.text2', this.value)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>About Image URL</label>
+                            <input type="text" id="sec-about-image" onchange="updateConfig('sections.about.image', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>Safaris Section Title</label>
+                            <input type="text" id="sec-safaris-title" onchange="updateConfig('sections.safaris.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Safaris Section Subtitle</label>
+                            <input type="text" id="sec-safaris-subtitle" onchange="updateConfig('sections.safaris.subtitle', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>Parks Section Title</label>
+                            <input type="text" id="sec-parks-title" onchange="updateConfig('sections.parks.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Parks Section Subtitle</label>
+                            <input type="text" id="sec-parks-subtitle" onchange="updateConfig('sections.parks.subtitle', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>Gallery Section Title</label>
+                            <input type="text" id="sec-gallery-title" onchange="updateConfig('sections.gallery.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Gallery Section Subtitle</label>
+                            <input type="text" id="sec-gallery-subtitle" onchange="updateConfig('sections.gallery.subtitle', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>FAQ Section Title</label>
+                            <input type="text" id="sec-faq-title" onchange="updateConfig('sections.faq.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>FAQ Section Subtitle</label>
+                            <input type="text" id="sec-faq-subtitle" onchange="updateConfig('sections.faq.subtitle', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>Reviews Section Title</label>
+                            <input type="text" id="sec-reviews-title" onchange="updateConfig('sections.reviews.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Reviews Section Subtitle</label>
+                            <input type="text" id="sec-reviews-subtitle" onchange="updateConfig('sections.reviews.subtitle', this.value)">
+                        </div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+                        <div class="form-group">
+                            <label>Contact Section Title</label>
+                            <input type="text" id="sec-contact-title" onchange="updateConfig('sections.contact.title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Section Subtitle</label>
+                            <input type="text" id="sec-contact-subtitle" onchange="updateConfig('sections.contact.subtitle', this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safaris Tab -->
+            <div class="admin-section" id="admin-safaris">
+                <h3>Safari Packages</h3>
+                <p>Add, edit, or remove safari packages. Changes reflect immediately on your website.</p>
+                <div class="admin-card">
+                    <h4>Manage Packages</h4>
+                    <div id="safaris-list">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <button class="add-item-btn" onclick="openSafariEditor()">
+                        <i class="fas fa-plus"></i> Add New Safari Package
+                    </button>
+                </div>
+                <div class="admin-card" id="safari-editor" style="display: none;">
+                    <h4 id="safari-editor-title">Add Safari Package</h4>
+                    <div class="admin-form">
+                        <input type="hidden" id="safari-edit-id">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Package Name *</label>
+                                <input type="text" id="safari-edit-name">
+                            </div>
+                            <div class="form-group">
+                                <label>Price (e.g. $99 or Rs. 15,000) *</label>
+                                <input type="text" id="safari-edit-price">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Duration (e.g. "4 Hours" or "Full Day") *</label>
+                                <input type="text" id="safari-edit-duration">
+                            </div>
+                            <div class="form-group">
+                                <label>Location/Park *</label>
+                                <input type="text" id="safari-edit-location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Short Description *</label>
+                            <textarea id="safari-edit-desc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="text" id="safari-edit-image">
+                        </div>
+                        <div class="form-group">
+                            <label>Features (one per line)</label>
+                            <textarea id="safari-edit-features" rows="4" placeholder="Jeep safari with experienced guide\nHotel pickup & drop-off\nPark entrance fees included"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Badge Text (optional, e.g. "Popular", "Best Value")</label>
+                                <input type="text" id="safari-edit-badge">
+                            </div>
+                            <div class="form-group">
+                                <label>Price Label (e.g. "/ person", "/ group")</label>
+                                <input type="text" id="safari-edit-price-label" value="/ person">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 20px;">
+                            <button class="btn" onclick="saveSafari()">Save Package</button>
+                            <button class="btn btn-outline" onclick="closeSafariEditor()" style="color: var(--text);">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parks Tab -->
+            <div class="admin-section" id="admin-parks">
+                <h3>National Parks</h3>
+                <p>Manage the national parks displayed on your website.</p>
+                <div class="admin-card">
+                    <h4>Manage Parks</h4>
+                    <div id="parks-list-admin">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <button class="add-item-btn" onclick="openParkEditor()">
+                        <i class="fas fa-plus"></i> Add New Park
+                    </button>
+                </div>
+                <div class="admin-card" id="park-editor" style="display: none;">
+                    <h4 id="park-editor-title">Add National Park</h4>
+                    <div class="admin-form">
+                        <input type="hidden" id="park-edit-id">
+                        <div class="form-group">
+                            <label>Park Name *</label>
+                            <input type="text" id="park-edit-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Description *</label>
+                            <textarea id="park-edit-desc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="text" id="park-edit-image">
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 20px;">
+                            <button class="btn" onclick="savePark()">Save Park</button>
+                            <button class="btn btn-outline" onclick="closeParkEditor()" style="color: var(--text);">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Tab -->
+            <div class="admin-section" id="admin-gallery">
+                <h3>Photo Gallery</h3>
+                <p>Add or remove gallery images. Use high-quality images for best results.</p>
+                <div class="admin-card">
+                    <h4>Manage Images</h4>
+                    <div id="gallery-list-admin">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <button class="add-item-btn" onclick="addGalleryImage()">
+                        <i class="fas fa-plus"></i> Add Gallery Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- FAQ Tab -->
+            <div class="admin-section" id="admin-faq">
+                <h3>FAQ Management</h3>
+                <p>Edit frequently asked questions and answers.</p>
+                <div class="admin-card">
+                    <h4>Manage FAQ Items</h4>
+                    <div id="faq-list-admin">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <button class="add-item-btn" onclick="openFaqEditor()">
+                        <i class="fas fa-plus"></i> Add FAQ Item
+                    </button>
+                </div>
+                <div class="admin-card" id="faq-editor" style="display: none;">
+                    <h4 id="faq-editor-title">Add FAQ</h4>
+                    <div class="admin-form">
+                        <input type="hidden" id="faq-edit-id">
+                        <div class="form-group">
+                            <label>Question *</label>
+                            <input type="text" id="faq-edit-question">
+                        </div>
+                        <div class="form-group">
+                            <label>Answer *</label>
+                            <textarea id="faq-edit-answer" rows="4"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 20px;">
+                            <button class="btn" onclick="saveFaq()">Save FAQ</button>
+                            <button class="btn btn-outline" onclick="closeFaqEditor()" style="color: var(--text);">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Tab -->
+            <div class="admin-section" id="admin-reviews">
+                <h3>Customer Reviews</h3>
+                <p>Manage testimonials and customer reviews.</p>
+                <div class="admin-card">
+                    <h4>Manage Reviews</h4>
+                    <div id="reviews-list-admin">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <button class="add-item-btn" onclick="openReviewEditor()">
+                        <i class="fas fa-plus"></i> Add Review
+                    </button>
+                </div>
+                <div class="admin-card" id="review-editor" style="display: none;">
+                    <h4 id="review-editor-title">Add Review</h4>
+                    <div class="admin-form">
+                        <input type="hidden" id="review-edit-id">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Customer Name *</label>
+                                <input type="text" id="review-edit-name">
+                            </div>
+                            <div class="form-group">
+                                <label>Location (e.g. "UK", "Germany")</label>
+                                <input type="text" id="review-edit-location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Review Text *</label>
+                            <textarea id="review-edit-text" rows="4"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Rating (1-5)</label>
+                                <select id="review-edit-rating">
+                                    <option value="5">5 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                    <option value="3">3 Stars</option>
+                                    <option value="2">2 Stars</option>
+                                    <option value="1">1 Star</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profile Image URL (optional)</label>
+                                <input type="text" id="review-edit-image">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 20px;">
+                            <button class="btn" onclick="saveReview()">Save Review</button>
+                            <button class="btn btn-outline" onclick="closeReviewEditor()" style="color: var(--text);">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Tab -->
+            <div class="admin-section" id="admin-booking">
+                <h3>Booking System</h3>
+                <p>Customize the booking form and WhatsApp integration.</p>
+                <div class="admin-card">
+                    <h4>Booking Settings</h4>
+                    <div class="admin-form">
+                        <div class="form-group">
+                            <label>WhatsApp Number for Bookings (with country code, no +)</label>
+                            <input type="text" id="booking-whatsapp" onchange="updateConfig('booking.whatsappNumber', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Automatic WhatsApp Message Template</label>
+                            <textarea id="booking-message" rows="4" onchange="updateConfig('booking.autoMessage', this.value)"></textarea>
+                            <small style="color: var(--text-light);">Use {name}, {package}, {date}, {time}, {guests}, {pickup} as placeholders</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Available Safari Times (one per line)</label>
+                            <textarea id="booking-times" rows="4" onchange="updateBookingTimes(this.value)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Pickup Information Text</label>
+                            <textarea id="booking-pickup" rows="2" onchange="updateConfig('booking.pickupInfo', this.value)"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Tab -->
+            <div class="admin-section" id="admin-advanced">
+                <h3>Advanced Settings</h3>
+                <p>Backup, restore, and manage your website configuration.</p>
+                <div class="admin-card">
+                    <h4>Export / Import Configuration</h4>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">Export your entire website configuration as a JSON file for backup, or import a previously saved configuration.</p>
+                    <div class="admin-actions">
+                        <button class="btn" onclick="exportConfig()">
+                            <i class="fas fa-download"></i> Export Config (Backup)
+                        </button>
+                        <button class="btn info" onclick="document.getElementById('import-file').click()">
+                            <i class="fas fa-upload"></i> Import Config
+                        </button>
+                        <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importConfig(this)">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>Reset Options</h4>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">Warning: These actions cannot be undone. Make sure to export your config first.</p>
+                    <div class="admin-actions">
+                        <button class="btn danger" onclick="resetToDefaults()">
+                            <i class="fas fa-undo"></i> Reset to Default
+                        </button>
+                        <button class="btn btn-outline" onclick="clearLocalStorage()" style="color: #dc3545; border-color: #dc3545;">
+                            <i class="fas fa-trash"></i> Clear All Data
+                        </button>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h4>Future Expansion Ready</h4>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Your website is built with scalability in mind. Future features you can add:<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Online booking with payment gateway (Stripe/PayPal)<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Multi-language support (i18n)<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Blog / News section<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> SEO meta management<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Google Analytics & Facebook Pixel<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Tour availability calendar<br>
+                        <i class="fas fa-check" style="color: var(--secondary); margin-right: 8px;"></i> Customer review submission form
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==================== DEFAULT CONFIGURATION ====================
+        const DEFAULT_CONFIG = {
+            business: {
+                name: "Wild Horizons Safaris",
+                logo: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=100&h=100&fit=crop",
+                phone: "+94 77 123 4567",
+                whatsapp: "94771234567",
+                email: "info@wildhorizons.lk",
+                address: "123 Safari Road, Habarana, Sri Lanka",
+                mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1!2d80.75!3d8.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMjEnMDAuMCJOIDgwwrA0NScwMC4wIkU!5e0!3m2!1sen!2slk!4v1",
+                social: {
+                    facebook: "https://facebook.com/wildhorizons",
+                    instagram: "https://instagram.com/wildhorizons",
+                    youtube: "https://youtube.com/wildhorizons",
+                    tripadvisor: "https://tripadvisor.com/wildhorizons"
+                }
+            },
+            theme: {
+                primary: "#D4A017",
+                secondary: "#2C5F2D",
+                background: "#FDFBF7",
+                text: "#1A1A1A",
+                button: "#D4A017",
+                buttonText: "#FFFFFF",
+                accent: "#E85D04",
+                fontHeading: "'Playfair Display', serif",
+                fontBody: "'Inter', sans-serif",
+                borderRadius: "12px",
+                shadowIntensity: "medium"
+            },
+            sections: {
+                hero: {
+                    enabled: true,
+                    order: 1,
+                    title: "Discover the Wild Heart of Sri Lanka",
+                    subtitle: "Experience unforgettable wildlife safaris in Sri Lanka's most stunning national parks. Witness elephants, leopards, and exotic birds in their natural habitat.",
+                    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&h=1080&fit=crop",
+                    buttonText: "Book Your Safari",
+                    buttonSecondary: "Explore Packages"
+                },
+                about: {
+                    enabled: true,
+                    order: 2,
+                    title: "About Wild Horizons Safaris",
+                    text1: "We are a premier safari tour operator dedicated to providing authentic wildlife experiences across Sri Lanka's breathtaking national parks. With over 10 years of expertise, our knowledgeable guides ensure every safari is safe, educational, and unforgettable.",
+                    text2: "Our commitment to sustainable tourism means we prioritize the well-being of wildlife and local communities while delivering world-class adventures to our guests from around the globe.",
+                    image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&h=600&fit=crop"
+                },
+                safaris: {
+                    enabled: true,
+                    order: 3,
+                    title: "Safari Packages",
+                    subtitle: "Choose from our carefully curated safari experiences designed for every type of adventurer."
+                },
+                parks: {
+                    enabled: true,
+                    order: 4,
+                    title: "National Parks",
+                    subtitle: "Explore Sri Lanka's most renowned wildlife sanctuaries, each offering unique landscapes and incredible biodiversity."
+                },
+                gallery: {
+                    enabled: true,
+                    order: 5,
+                    title: "Photo Gallery",
+                    subtitle: "Glimpses of the incredible wildlife and landscapes awaiting you."
+                },
+                faq: {
+                    enabled: true,
+                    order: 6,
+                    title: "Frequently Asked Questions",
+                    subtitle: "Everything you need to know before embarking on your safari adventure."
+                },
+                reviews: {
+                    enabled: true,
+                    order: 7,
+                    title: "What Our Guests Say",
+                    subtitle: "Real experiences from real travelers who explored the wild with us."
+                },
+                contact: {
+                    enabled: true,
+                    order: 8,
+                    title: "Get In Touch",
+                    subtitle: "Ready for your adventure? Contact us to plan your perfect safari experience."
+                }
+            },
+            safaris: [
+                {
+                    id: "safari-1",
+                    name: "Minneriya Elephant Gathering",
+                    price: "$89",
+                    priceLabel: "/ person",
+                    duration: "4 Hours",
+                    location: "Minneriya National Park",
+                    description: "Witness the world-famous elephant gathering at Minneriya. Over 300 elephants congregate around the ancient tank during the dry season.",
+                    image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600&h=400&fit=crop",
+                    features: ["Jeep safari with experienced guide", "Hotel pickup & drop-off", "Park entrance fees included", "Bottled water & refreshments"],
+                    badge: "Popular"
+                },
+                {
+                    id: "safari-2",
+                    name: "Yala Leopard Safari",
+                    price: "$129",
+                    priceLabel: "/ person",
+                    duration: "Full Day",
+                    location: "Yala National Park",
+                    description: "Track leopards in Sri Lanka's most famous wildlife sanctuary. Yala has one of the highest leopard densities in the world.",
+                    image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=600&h=400&fit=crop",
+                    features: ["Full-day jeep safari", "Expert naturalist guide", "Packed lunch included", "Wildlife spotting guarantee"],
+                    badge: "Best Value"
+                },
+                {
+                    id: "safari-3",
+                    name: "Udawalawe Elephant Safari",
+                    price: "$75",
+                    priceLabel: "/ person",
+                    duration: "3 Hours",
+                    location: "Udawalawe National Park",
+                    description: "Home to over 500 elephants, Udawalawe offers guaranteed elephant sightings year-round in a stunning open grassland setting.",
+                    image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&h=400&fit=crop",
+                    features: ["Morning or afternoon safari", "Professional guide", "Park fees included", "Great for photography"],
+                    badge: ""
+                },
+                {
+                    id: "safari-4",
+                    name: "Bird Watching Expedition",
+                    price: "$65",
+                    priceLabel: "/ person",
+                    duration: "5 Hours",
+                    location: "Bundala National Park",
+                    description: "A paradise for bird lovers with over 200 species including flamingos, pelicans, and rare migratory birds.",
+                    image: "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=600&h=400&fit=crop",
+                    features: ["Expert ornithologist guide", "Binoculars provided", "Bird checklist included", "Small group size"],
+                    badge: ""
+                },
+                {
+                    id: "safari-5",
+                    name: "Wilpattu Wilderness",
+                    price: "$149",
+                    priceLabel: "/ person",
+                    duration: "Full Day",
+                    location: "Wilpattu National Park",
+                    description: "Explore Sri Lanka's largest national park with its unique villus (natural lakes) and dense forest canopy.",
+                    image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&h=400&fit=crop",
+                    features: ["Full-day expedition", "Leopard & sloth bear tracking", "Luxury picnic lunch", "Maximum 4 per jeep"],
+                    badge: "Premium"
+                },
+                {
+                    id: "safari-6",
+                    name: "Night Safari Adventure",
+                    price: "$95",
+                    priceLabel: "/ person",
+                    duration: "3 Hours",
+                    location: "Habarana Forest",
+                    description: "Experience the jungle after dark. Spot nocturnal animals including civets, owls, and maybe even a leopard on the prowl.",
+                    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&h=400&fit=crop",
+                    features: ["Specialized night vision equipment", "Expert nocturnal guide", "Hot beverages provided", "Unique experience"],
+                    badge: ""
+                }
+            ],
+            parks: [
+                {
+                    id: "park-1",
+                    name: "Yala National Park",
+                    description: "Famous for leopards, elephants, and diverse wildlife across coastal lagoons and forests.",
+                    image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=600&h=400&fit=crop"
+                },
+                {
+                    id: "park-2",
+                    name: "Minneriya National Park",
+                    description: "Home to the world's largest gathering of Asian elephants during the dry season.",
+                    image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600&h=400&fit=crop"
+                },
+                {
+                    id: "park-3",
+                    name: "Udawalawe National Park",
+                    description: "Guaranteed elephant sightings in open grasslands and around the reservoir.",
+                    image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&h=400&fit=crop"
+                },
+                {
+                    id: "park-4",
+                    name: "Wilpattu National Park",
+                    description: "Sri Lanka's largest park known for its natural lakes and leopard population.",
+                    image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&h=400&fit=crop"
+                },
+                {
+                    id: "park-5",
+                    name: "Bundala National Park",
+                    description: "A UNESCO biosphere reserve and paradise for migratory birds and flamingos.",
+                    image: "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=600&h=400&fit=crop"
+                },
+                {
+                    id: "park-6",
+                    name: "Kaudulla National Park",
+                    description: "Another excellent spot for elephant gatherings with fewer crowds than Minneriya.",
+                    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&h=400&fit=crop"
+                }
+            ],
+            gallery: [
+                "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=600&h=600&fit=crop"
+            ],
+            faq: [
+                {
+                    id: "faq-1",
+                    question: "What is the best time to go on a safari in Sri Lanka?",
+                    answer: "The best time for safaris is during the dry season from May to September. This is when animals gather around water sources, making sightings more frequent. However, Yala and Udawalawe offer great wildlife viewing year-round."
+                },
+                {
+                    id: "faq-2",
+                    question: "What should I wear on a safari?",
+                    answer: "Wear comfortable, breathable clothing in neutral colors (khaki, olive, beige). Avoid bright colors and white. Bring a hat, sunglasses, sunscreen, and closed-toe shoes. A light jacket is recommended for early morning safaris."
+                },
+                {
+                    id: "faq-3",
+                    question: "Are children allowed on safaris?",
+                    answer: "Yes, children are welcome! We recommend safaris for children aged 5 and above. We provide child-friendly experiences with shorter durations and safety equipment. Please inform us in advance if you're traveling with young children."
+                },
+                {
+                    id: "faq-4",
+                    question: "What animals can I expect to see?",
+                    answer: "Depending on the park, you can see Asian elephants, leopards, sloth bears, crocodiles, water buffalo, deer, monkeys, and over 200 bird species. Each park has unique wildlife, and our guides know the best spots."
+                },
+                {
+                    id: "faq-5",
+                    question: "Is hotel pickup included?",
+                    answer: "Yes, we offer complimentary pickup and drop-off from hotels in Habarana, Sigiriya, Dambulla, and nearby areas. For locations further away, a small transport fee may apply. Contact us for details."
+                },
+                {
+                    id: "faq-6",
+                    question: "What is your cancellation policy?",
+                    answer: "We offer free cancellation up to 24 hours before your scheduled safari for a full refund. Cancellations within 24 hours receive a 50% refund. No-shows are not eligible for refunds."
+                }
+            ],
+            reviews: [
+                {
+                    id: "rev-1",
+                    name: "Sarah Mitchell",
+                    location: "London, UK",
+                    text: "Absolutely incredible experience! We saw over 200 elephants at Minneriya. Our guide was so knowledgeable and made the whole trip unforgettable. Highly recommend!",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+                },
+                {
+                    id: "rev-2",
+                    name: "Hans Mueller",
+                    location: "Berlin, Germany",
+                    text: "The leopard safari at Yala was the highlight of our Sri Lanka trip. We spotted 3 leopards and countless other animals. Professional team and excellent service.",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+                },
+                {
+                    id: "rev-3",
+                    name: "Priya Sharma",
+                    location: "Mumbai, India",
+                    text: "We booked the bird watching tour and it exceeded all expectations. Our guide was an expert ornithologist who helped us spot rare species. Worth every rupee!",
+                    rating: 5,
+                    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop"
+                }
+            ],
+            booking: {
+                whatsappNumber: "94771234567",
+                autoMessage: "Hello! I would like to book a safari.\n\nName: {name}\nPackage: {package}\nDate: {date}\nTime: {time}\nGuests: {guests}\nPickup: {pickup}\n\nPlease confirm my booking. Thank you!",
+                availableTimes: [
+                    "Morning (5:30 AM - 9:30 AM)",
+                    "Afternoon (2:30 PM - 6:30 PM)",
+                    "Full Day (5:30 AM - 6:30 PM)"
+                ],
+                pickupInfo: "Free pickup from hotels in Habarana, Sigiriya, Dambulla. Other locations may have a small fee."
+            }
+        };
+
+        // ==================== STATE MANAGEMENT ====================
+        let CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        let currentLightboxIndex = 0;
+
+        function loadConfig() {
+            const saved = localStorage.getItem('safariWebsiteConfig');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    CONFIG = deepMerge(DEFAULT_CONFIG, parsed);
+                } catch (e) {
+                    console.error("Failed to load config:", e);
+                }
+            }
+        }
+
+        function saveConfig() {
+            localStorage.setItem('safariWebsiteConfig', JSON.stringify(CONFIG));
+            showToast("Configuration saved successfully!", "success");
+            applyConfig();
+        }
+
+        function deepMerge(defaults, custom) {
+            const result = JSON.parse(JSON.stringify(defaults));
+            for (const key in custom) {
+                if (custom[key] !== null && typeof custom[key] === 'object' && !Array.isArray(custom[key])) {
+                    result[key] = deepMerge(result[key] || {}, custom[key]);
+                } else {
+                    result[key] = custom[key];
+                }
+            }
+            return result;
+        }
+
+        function updateConfig(path, value) {
+            const keys = path.split('.');
+            let target = CONFIG;
+            for (let i = 0; i < keys.length - 1; i++) {
+                target = target[keys[i]];
+            }
+            target[keys[keys.length - 1]] = value;
+            applyConfig();
+        }
+
+        // ==================== THEME APPLICATION ====================
+        function applyTheme() {
+            const t = CONFIG.theme;
+            const root = document.documentElement;
+            root.style.setProperty('--primary', t.primary);
+            root.style.setProperty('--secondary', t.secondary);
+            root.style.setProperty('--background', t.background);
+            root.style.setProperty('--text', t.text);
+            root.style.setProperty('--button', t.button);
+            root.style.setProperty('--button-text', t.buttonText || '#FFFFFF');
+            root.style.setProperty('--accent', t.accent);
+            root.style.setProperty('--font-heading', t.fontHeading);
+            root.style.setProperty('--font-body', t.fontBody);
+            root.style.setProperty('--radius', t.borderRadius);
+
+            const shadows = {
+                none: 'none',
+                light: '0 2px 10px rgba(0,0,0,0.05)',
+                medium: '0 4px 20px rgba(0,0,0,0.08)',
+                heavy: '0 8px 40px rgba(0,0,0,0.15)'
+            };
+            root.style.setProperty('--shadow', shadows[t.shadowIntensity] || shadows.medium);
+        }
+
+        function updateThemeColor(key, value) {
+            CONFIG.theme[key] = value;
+            document.getElementById(`theme-${key}-color`).value = value;
+            document.getElementById(`theme-${key}-text`).value = value;
+            applyTheme();
+        }
+
+        // ==================== RENDER FUNCTIONS ====================
+        function applyConfig() {
+            applyTheme();
+
+            // Business Info
+            document.getElementById('page-title').textContent = CONFIG.business.name;
+            document.getElementById('nav-business-name').textContent = CONFIG.business.name;
+            document.getElementById('nav-logo-img').src = CONFIG.business.logo;
+            document.getElementById('footer-business-name').textContent = CONFIG.business.name;
+            document.getElementById('footer-logo-img').src = CONFIG.business.logo;
+            document.getElementById('footer-about').textContent = `Your trusted partner for unforgettable wildlife safaris in ${CONFIG.business.name.split(' ').slice(-1)[0] === 'Safaris' ? 'Sri Lanka' : 'the region'}. Discover nature, respect wildlife, create memories.`;
+
+            // Contact
+            document.getElementById('contact-phone').textContent = CONFIG.business.phone;
+            document.getElementById('contact-phone').href = `tel:${CONFIG.business.phone.replace(/\s/g, '')}`;
+            document.getElementById('contact-whatsapp').textContent = CONFIG.business.whatsapp;
+            document.getElementById('contact-whatsapp').href = `https://wa.me/${CONFIG.business.whatsapp.replace(/\+/, '').replace(/\s/g, '')}`;
+            document.getElementById('contact-email').textContent = CONFIG.business.email;
+            document.getElementById('contact-email').href = `mailto:${CONFIG.business.email}`;
+            document.getElementById('contact-address').textContent = CONFIG.business.address;
+            document.getElementById('contact-map').src = CONFIG.business.mapUrl;
+
+            // Footer contact
+            document.getElementById('footer-phone').textContent = CONFIG.business.phone;
+            document.getElementById('footer-email').textContent = CONFIG.business.email;
+            document.getElementById('footer-address').textContent = CONFIG.business.address.split(',')[0];
+
+            // Social links
+            const socialContainer = document.getElementById('contact-social');
+            socialContainer.innerHTML = '';
+            if (CONFIG.business.social.facebook) {
+                socialContainer.innerHTML += `<a href="${CONFIG.business.social.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>`;
+            }
+            if (CONFIG.business.social.instagram) {
+                socialContainer.innerHTML += `<a href="${CONFIG.business.social.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>`;
+            }
+            if (CONFIG.business.social.youtube) {
+                socialContainer.innerHTML += `<a href="${CONFIG.business.social.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>`;
+            }
+            if (CONFIG.business.social.tripadvisor) {
+                socialContainer.innerHTML += `<a href="${CONFIG.business.social.tripadvisor}" target="_blank"><i class="fab fa-tripadvisor"></i></a>`;
+            }
+
+            // WhatsApp float
+            document.getElementById('whatsapp-float').href = `https://wa.me/${CONFIG.business.whatsapp.replace(/\+/, '').replace(/\s/g, '')}`;
+
+            // Hero
+            document.getElementById('hero-title').textContent = CONFIG.sections.hero.title;
+            document.getElementById('hero-subtitle').textContent = CONFIG.sections.hero.subtitle;
+            document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.sections.hero.image}')`;
+
+            // About
+            document.getElementById('about-title').textContent = CONFIG.sections.about.title;
+            document.getElementById('about-text').textContent = CONFIG.sections.about.text1;
+            document.getElementById('about-text-2').textContent = CONFIG.sections.about.text2;
+            document.getElementById('about-image').src = CONFIG.sections.about.image;
+
+            // Section headers
+            document.getElementById('safaris-title').textContent = CONFIG.sections.safaris.title;
+            document.getElementById('safaris-subtitle').textContent = CONFIG.sections.safaris.subtitle;
+            document.getElementById('parks-title').textContent = CONFIG.sections.parks.title;
+            document.getElementById('parks-subtitle').textContent = CONFIG.sections.parks.subtitle;
+            document.getElementById('gallery-title').textContent = CONFIG.sections.gallery.title;
+            document.getElementById('gallery-subtitle').textContent = CONFIG.sections.gallery.subtitle;
+            document.getElementById('faq-title').textContent = CONFIG.sections.faq.title;
+            document.getElementById('faq-subtitle').textContent = CONFIG.sections.faq.subtitle;
+            document.getElementById('reviews-title').textContent = CONFIG.sections.reviews.title;
+            document.getElementById('reviews-subtitle').textContent = CONFIG.sections.reviews.subtitle;
+            document.getElementById('contact-title').textContent = CONFIG.sections.contact.title;
+            document.getElementById('contact-subtitle').textContent = CONFIG.sections.contact.subtitle;
+
+            // Render dynamic content
+            renderSafaris();
+            renderParks();
+            renderGallery();
+            renderFAQ();
+            renderReviews();
+            renderBookingOptions();
+
+            // Show/hide sections based on enabled status
+            Object.keys(CONFIG.sections).forEach(key => {
+                const section = document.querySelector(`[data-section="${key}"]`);
+                if (section) {
+                    section.style.display = CONFIG.sections[key].enabled ? '' : 'none';
+                }
+            });
+
+            // Update admin fields
+            populateAdminFields();
+        }
+
+        function renderSafaris() {
+            const grid = document.getElementById('safari-grid');
+            grid.innerHTML = CONFIG.safaris.map(safari => `
+                <div class="safari-card">
+                    <div class="safari-img">
+                        <img src="${safari.image}" alt="${safari.name}" loading="lazy">
+                        ${safari.badge ? `<span class="safari-badge">${safari.badge}</span>` : ''}
+                    </div>
+                    <div class="safari-body">
+                        <h3>${safari.name}</h3>
+                        <div class="safari-meta">
+                            <span><i class="far fa-clock"></i> ${safari.duration}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${safari.location}</span>
+                        </div>
+                        <p>${safari.description}</p>
+                        <ul class="safari-features">
+                            ${safari.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
+                        </ul>
+                        <div class="safari-footer">
+                            <div class="safari-price">${safari.price}<span>${safari.priceLabel}</span></div>
+                            <button class="btn btn-sm" onclick="openBooking('${safari.name}')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderParks() {
+            const grid = document.getElementById('parks-grid');
+            grid.innerHTML = CONFIG.parks.map(park => `
+                <div class="park-card">
+                    <img src="${park.image}" alt="${park.name}" loading="lazy">
+                    <div class="park-overlay">
+                        <h3>${park.name}</h3>
+                        <p>${park.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = CONFIG.gallery.map((img, idx) => `
+                <div class="gallery-item" onclick="openLightbox(${idx})">
+                    <img src="${img}" alt="Safari gallery image ${idx + 1}" loading="lazy">
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ() {
+            const list = document.getElementById('faq-list');
+            list.innerHTML = CONFIG.faq.map((item, idx) => `
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        ${item.question}
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        ${item.answer}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderReviews() {
+            const grid = document.getElementById('reviews-grid');
+            grid.innerHTML = CONFIG.reviews.map(review => {
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                return `
+                    <div class="review-card">
+                        <div class="quote-icon">"</div>
+                        <div class="review-stars">${stars}</div>
+                        <p class="review-text">"${review.text}"</p>
+                        <div class="reviewer">
+                            <img src="${review.image || 'https://via.placeholder.com/56'}" alt="${review.name}" class="reviewer-img">
+                            <div class="reviewer-info">
+                                <h4>${review.name}</h4>
+                                <p>${review.location}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderBookingOptions() {
+            const select = document.getElementById('booking-package');
+            select.innerHTML = '<option value="">Choose a package...</option>' +
+                CONFIG.safaris.map(s => `<option value="${s.name}">${s.name} - ${s.price}</option>`).join('');
+
+            const timeSelect = document.getElementById('booking-time');
+            timeSelect.innerHTML = '<option value="">Select time...</option>' +
+                CONFIG.booking.availableTimes.map(t => `<option value="${t}">${t}</option>`).join('');
+        }
+
+        // ==================== INTERACTIONS ====================
+        function toggleMobileMenu() {
+            document.getElementById('nav-links').classList.toggle('active');
+        }
+
+        function toggleFaq(item) {
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
+        }
+
+        function openBooking(packageName = '') {
+            document.getElementById('booking-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (packageName) {
+                document.getElementById('booking-package').value = packageName;
+            }
+        }
+
+        function closeBooking() {
+            document.getElementById('booking-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                name: `${form.firstName.value} ${form.lastName.value}`,
+                package: form.package.value,
+                date: form.date.value,
+                time: form.time.value,
+                guests: form.guests.value,
+                pickup: form.pickup.value || 'Not specified'
+            };
+
+            let message = CONFIG.booking.autoMessage;
+            Object.keys(data).forEach(key => {
+                message = message.replace(new RegExp(`{${key}}`, 'g'), data[key]);
+            });
+
+            const url = `https://wa.me/${CONFIG.booking.whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            closeBooking();
+            form.reset();
+            showToast("Booking request sent via WhatsApp!", "success");
+        }
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            document.getElementById('lightbox-img').src = CONFIG.gallery[index];
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightboxImage(dir) {
+            currentLightboxIndex = (currentLightboxIndex + dir + CONFIG.gallery.length) % CONFIG.gallery.length;
+            document.getElementById('lightbox-img').src = CONFIG.gallery[currentLightboxIndex];
+        }
+
+        // ==================== ADMIN PANEL ====================
+        function toggleAdmin() {
+            const panel = document.getElementById('admin-panel');
+            const isActive = panel.classList.contains('active');
+            if (isActive) {
+                closeAdmin();
+            } else {
+                panel.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                populateAdminFields();
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('admin-panel').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showAdminTab(tab) {
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(`admin-${tab}`).classList.add('active');
+
+            if (tab === 'sections') renderSectionsList();
+            if (tab === 'safaris') renderSafarisAdmin();
+            if (tab === 'parks') renderParksAdmin();
+            if (tab === 'gallery') renderGalleryAdmin();
+            if (tab === 'faq') renderFaqAdmin();
+            if (tab === 'reviews') renderReviewsAdmin();
+        }
+
+        function populateAdminFields() {
+            // Business
+            document.getElementById('biz-name').value = CONFIG.business.name;
+            document.getElementById('biz-logo').value = CONFIG.business.logo;
+            document.getElementById('biz-phone').value = CONFIG.business.phone;
+            document.getElementById('biz-whatsapp').value = CONFIG.business.whatsapp;
+            document.getElementById('biz-email').value = CONFIG.business.email;
+            document.getElementById('biz-address').value = CONFIG.business.address;
+            document.getElementById('biz-map').value = CONFIG.business.mapUrl;
+            document.getElementById('biz-facebook').value = CONFIG.business.social.facebook;
+            document.getElementById('biz-instagram').value = CONFIG.business.social.instagram;
+            document.getElementById('biz-youtube').value = CONFIG.business.social.youtube;
+            document.getElementById('biz-tripadvisor').value = CONFIG.business.social.tripadvisor;
+
+            // Theme
+            document.getElementById('theme-primary-color').value = CONFIG.theme.primary;
+            document.getElementById('theme-primary-text').value = CONFIG.theme.primary;
+            document.getElementById('theme-secondary-color').value = CONFIG.theme.secondary;
+            document.getElementById('theme-secondary-text').value = CONFIG.theme.secondary;
+            document.getElementById('theme-background-color').value = CONFIG.theme.background;
+            document.getElementById('theme-background-text').value = CONFIG.theme.background;
+            document.getElementById('theme-text-color').value = CONFIG.theme.text;
+            document.getElementById('theme-text-text').value = CONFIG.theme.text;
+            document.getElementById('theme-button-color').value = CONFIG.theme.button;
+            document.getElementById('theme-button-text').value = CONFIG.theme.button;
+            document.getElementById('theme-accent-color').value = CONFIG.theme.accent;
+            document.getElementById('theme-accent-text').value = CONFIG.theme.accent;
+            document.getElementById('theme-font-heading').value = CONFIG.theme.fontHeading;
+            document.getElementById('theme-font-body').value = CONFIG.theme.fontBody;
+            document.getElementById('theme-radius').value = CONFIG.theme.borderRadius;
+            document.getElementById('theme-shadow').value = CONFIG.theme.shadowIntensity;
+
+            // Sections content
+            document.getElementById('sec-hero-title').value = CONFIG.sections.hero.title;
+            document.getElementById('sec-hero-subtitle').value = CONFIG.sections.hero.subtitle;
+            document.getElementById('sec-hero-image').value = CONFIG.sections.hero.image;
+            document.getElementById('sec-hero-btn1').value = CONFIG.sections.hero.buttonText;
+            document.getElementById('sec-hero-btn2').value = CONFIG.sections.hero.buttonSecondary;
+            document.getElementById('sec-about-title').value = CONFIG.sections.about.title;
+            document.getElementById('sec-about-text1').value = CONFIG.sections.about.text1;
+            document.getElementById('sec-about-text2').value = CONFIG.sections.about.text2;
+            document.getElementById('sec-about-image').value = CONFIG.sections.about.image;
+            document.getElementById('sec-safaris-title').value = CONFIG.sections.safaris.title;
+            document.getElementById('sec-safaris-subtitle').value = CONFIG.sections.safaris.subtitle;
+            document.getElementById('sec-parks-title').value = CONFIG.sections.parks.title;
+            document.getElementById('sec-parks-subtitle').value = CONFIG.sections.parks.subtitle;
+            document.getElementById('sec-gallery-title').value = CONFIG.sections.gallery.title;
+            document.getElementById('sec-gallery-subtitle').value = CONFIG.sections.gallery.subtitle;
+            document.getElementById('sec-faq-title').value = CONFIG.sections.faq.title;
+            document.getElementById('sec-faq-subtitle').value = CONFIG.sections.faq.subtitle;
+            document.getElementById('sec-reviews-title').value = CONFIG.sections.reviews.title;
+            document.getElementById('sec-reviews-subtitle').value = CONFIG.sections.reviews.subtitle;
+            document.getElementById('sec-contact-title').value = CONFIG.sections.contact.title;
+            document.getElementById('sec-contact-subtitle').value = CONFIG.sections.contact.subtitle;
+
+            // Booking
+            document.getElementById('booking-whatsapp').value = CONFIG.booking.whatsappNumber;
+            document.getElementById('booking-message').value = CONFIG.booking.autoMessage;
+            document.getElementById('booking-times').value = CONFIG.booking.availableTimes.join('\n');
+            document.getElementById('booking-pickup').value = CONFIG.booking.pickupInfo;
+        }
+
+        function renderSectionsList() {
+            const container = document.getElementById('sections-list');
+            const sectionNames = {
+                hero: 'Hero Banner',
+                about: 'About Us',
+                safaris: 'Safari Packages',
+                parks: 'National Parks',
+                gallery: 'Photo Gallery',
+                faq: 'FAQ Section',
+                reviews: 'Customer Reviews',
+                contact: 'Contact Section'
+            };
+
+            const sorted = Object.entries(CONFIG.sections).sort((a, b) => a[1].order - b[1].order);
+
+            container.innerHTML = sorted.map(([key, sec], idx) => `
+                <div class="section-toggle">
+                    <div style="flex: 1;">
+                        <h5>${sectionNames[key]}</h5>
+                        <p>Order: ${sec.order}</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div class="order-controls">
+                            <button onclick="moveSection('${key}', -1)" ${idx === 0 ? 'disabled style="opacity:0.3"' : ''}><i class="fas fa-arrow-up"></i></button>
+                            <button onclick="moveSection('${key}', 1)" ${idx === sorted.length - 1 ? 'disabled style="opacity:0.3"' : ''}><i class="fas fa-arrow-down"></i></button>
+                        </div>
+                        <label class="toggle-switch" style="margin-left: 16px;">
+                            <input type="checkbox" ${sec.enabled ? 'checked' : ''} onchange="toggleSection('${key}', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function moveSection(key, dir) {
+            const sorted = Object.entries(CONFIG.sections).sort((a, b) => a[1].order - b[1].order);
+            const idx = sorted.findIndex(([k]) => k === key);
+            const newIdx = idx + dir;
+            if (newIdx < 0 || newIdx >= sorted.length) return;
+
+            const temp = sorted[idx][1].order;
+            sorted[idx][1].order = sorted[newIdx][1].order;
+            sorted[newIdx][1].order = temp;
+
+            renderSectionsList();
+            applyConfig();
+        }
+
+        function toggleSection(key, enabled) {
+            CONFIG.sections[key].enabled = enabled;
+            applyConfig();
+        }
+
+        // ==================== SAFARI ADMIN ====================
+        function renderSafarisAdmin() {
+            const container = document.getElementById('safaris-list');
+            container.innerHTML = CONFIG.safaris.map(s => `
+                <div class="item-row">
+                    <img src="${s.image}" alt="${s.name}">
+                    <div class="item-info">
+                        <h5>${s.name}</h5>
+                        <p>${s.price} ${s.priceLabel} | ${s.duration} | ${s.location}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button onclick="editSafari('${s.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="danger-btn" onclick="deleteSafari('${s.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openSafariEditor() {
+            document.getElementById('safari-editor').style.display = 'block';
+            document.getElementById('safari-editor-title').textContent = 'Add Safari Package';
+            document.getElementById('safari-edit-id').value = '';
+            document.getElementById('safari-edit-name').value = '';
+            document.getElementById('safari-edit-price').value = '';
+            document.getElementById('safari-edit-duration').value = '';
+            document.getElementById('safari-edit-location').value = '';
+            document.getElementById('safari-edit-desc').value = '';
+            document.getElementById('safari-edit-image').value = '';
+            document.getElementById('safari-edit-features').value = '';
+            document.getElementById('safari-edit-badge').value = '';
+            document.getElementById('safari-edit-price-label').value = '/ person';
+        }
+
+        function editSafari(id) {
+            const safari = CONFIG.safaris.find(s => s.id === id);
+            if (!safari) return;
+            document.getElementById('safari-editor').style.display = 'block';
+            document.getElementById('safari-editor-title').textContent = 'Edit Safari Package';
+            document.getElementById('safari-edit-id').value = safari.id;
+            document.getElementById('safari-edit-name').value = safari.name;
+            document.getElementById('safari-edit-price').value = safari.price;
+            document.getElementById('safari-edit-duration').value = safari.duration;
+            document.getElementById('safari-edit-location').value = safari.location;
+            document.getElementById('safari-edit-desc').value = safari.description;
+            document.getElementById('safari-edit-image').value = safari.image;
+            document.getElementById('safari-edit-features').value = safari.features.join('\n');
+            document.getElementById('safari-edit-badge').value = safari.badge;
+            document.getElementById('safari-edit-price-label').value = safari.priceLabel;
+        }
+
+        function closeSafariEditor() {
+            document.getElementById('safari-editor').style.display = 'none';
+        }
+
+        function saveSafari() {
+            const id = document.getElementById('safari-edit-id').value;
+            const safari = {
+                id: id || 'safari-' + Date.now(),
+                name: document.getElementById('safari-edit-name').value,
+                price: document.getElementById('safari-edit-price').value,
+                priceLabel: document.getElementById('safari-edit-price-label').value,
+                duration: document.getElementById('safari-edit-duration').value,
+                location: document.getElementById('safari-edit-location').value,
+                description: document.getElementById('safari-edit-desc').value,
+                image: document.getElementById('safari-edit-image').value || 'https://via.placeholder.com/600x400',
+                features: document.getElementById('safari-edit-features').value.split('\n').filter(f => f.trim()),
+                badge: document.getElementById('safari-edit-badge').value
+            };
+
+            if (!safari.name || !safari.price || !safari.duration) {
+                showToast("Please fill in all required fields", "error");
+                return;
+            }
+
+            if (id) {
+                const idx = CONFIG.safaris.findIndex(s => s.id === id);
+                CONFIG.safaris[idx] = safari;
+            } else {
+                CONFIG.safaris.push(safari);
+            }
+
+            closeSafariEditor();
+            renderSafarisAdmin();
+            renderSafaris();
+            renderBookingOptions();
+            showToast("Safari package saved!", "success");
+        }
+
+        function deleteSafari(id) {
+            if (!confirm('Are you sure you want to delete this safari package?')) return;
+            CONFIG.safaris = CONFIG.safaris.filter(s => s.id !== id);
+            renderSafarisAdmin();
+            renderSafaris();
+            renderBookingOptions();
+            showToast("Safari package deleted", "success");
+        }
+
+        // ==================== PARK ADMIN ====================
+        function renderParksAdmin() {
+            const container = document.getElementById('parks-list-admin');
+            container.innerHTML = CONFIG.parks.map(p => `
+                <div class="item-row">
+                    <img src="${p.image}" alt="${p.name}">
+                    <div class="item-info">
+                        <h5>${p.name}</h5>
+                        <p>${p.description.substring(0, 60)}...</p>
+                    </div>
+                    <div class="item-actions">
+                        <button onclick="editPark('${p.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="danger-btn" onclick="deletePark('${p.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openParkEditor() {
+            document.getElementById('park-editor').style.display = 'block';
+            document.getElementById('park-editor-title').textContent = 'Add National Park';
+            document.getElementById('park-edit-id').value = '';
+            document.getElementById('park-edit-name').value = '';
+            document.getElementById('park-edit-desc').value = '';
+            document.getElementById('park-edit-image').value = '';
+        }
+
+        function editPark(id) {
+            const park = CONFIG.parks.find(p => p.id === id);
+            if (!park) return;
+            document.getElementById('park-editor').style.display = 'block';
+            document.getElementById('park-editor-title').textContent = 'Edit National Park';
+            document.getElementById('park-edit-id').value = park.id;
+            document.getElementById('park-edit-name').value = park.name;
+            document.getElementById('park-edit-desc').value = park.description;
+            document.getElementById('park-edit-image').value = park.image;
+        }
+
+        function closeParkEditor() {
+            document.getElementById('park-editor').style.display = 'none';
+        }
+
+        function savePark() {
+            const id = document.getElementById('park-edit-id').value;
+            const park = {
+                id: id || 'park-' + Date.now(),
+                name: document.getElementById('park-edit-name').value,
+                description: document.getElementById('park-edit-desc').value,
+                image: document.getElementById('park-edit-image').value || 'https://via.placeholder.com/600x400'
+            };
+
+            if (!park.name || !park.description) {
+                showToast("Please fill in all required fields", "error");
+                return;
+            }
+
+            if (id) {
+                const idx = CONFIG.parks.findIndex(p => p.id === id);
+                CONFIG.parks[idx] = park;
+            } else {
+                CONFIG.parks.push(park);
+            }
+
+            closeParkEditor();
+            renderParksAdmin();
+            renderParks();
+            showToast("National park saved!", "success");
+        }
+
+        function deletePark(id) {
+            if (!confirm('Are you sure you want to delete this park?')) return;
+            CONFIG.parks = CONFIG.parks.filter(p => p.id !== id);
+            renderParksAdmin();
+            renderParks();
+            showToast("National park deleted", "success");
+        }
+
+        // ==================== GALLERY ADMIN ====================
+        function renderGalleryAdmin() {
+            const container = document.getElementById('gallery-list-admin');
+            container.innerHTML = CONFIG.gallery.map((img, idx) => `
+                <div class="item-row">
+                    <img src="${img}" alt="Gallery ${idx + 1}">
+                    <div class="item-info">
+                        <h5>Image ${idx + 1}</h5>
+                        <p>${img.substring(0, 50)}...</p>
+                    </div>
+                    <div class="item-actions">
+                        <button onclick="editGalleryImage(${idx})"><i class="fas fa-edit"></i></button>
+                        <button class="danger-btn" onclick="deleteGalleryImage(${idx})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addGalleryImage() {
+            const url = prompt('Enter image URL:');
+            if (url && url.trim()) {
+                CONFIG.gallery.push(url.trim());
+                renderGalleryAdmin();
+                renderGallery();
+                showToast("Image added to gallery", "success");
+            }
+        }
+
+        function editGalleryImage(idx) {
+            const url = prompt('Enter new image URL:', CONFIG.gallery[idx]);
+            if (url && url.trim()) {
+                CONFIG.gallery[idx] = url.trim();
+                renderGalleryAdmin();
+                renderGallery();
+                showToast("Image updated", "success");
+            }
+        }
+
+        function deleteGalleryImage(idx) {
+            if (!confirm('Delete this image?')) return;
+            CONFIG.gallery.splice(idx, 1);
+            renderGalleryAdmin();
+            renderGallery();
+            showToast("Image deleted", "success");
+        }
+
+        // ==================== FAQ ADMIN ====================
+        function renderFaqAdmin() {
+            const container = document.getElementById('faq-list-admin');
+            container.innerHTML = CONFIG.faq.map(f => `
+                <div class="item-row">
+                    <div class="item-info" style="flex: 1;">
+                        <h5>${f.question}</h5>
+                        <p>${f.answer.substring(0, 60)}...</p>
+                    </div>
+                    <div class="item-actions">
+                        <button onclick="editFaq('${f.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="danger-btn" onclick="deleteFaq('${f.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openFaqEditor() {
+            document.getElementById('faq-editor').style.display = 'block';
+            document.getElementById('faq-editor-title').textContent = 'Add FAQ';
+            document.getElementById('faq-edit-id').value = '';
+            document.getElementById('faq-edit-question').value = '';
+            document.getElementById('faq-edit-answer').value = '';
+        }
+
+        function editFaq(id) {
+            const faq = CONFIG.faq.find(f => f.id === id);
+            if (!faq) return;
+            document.getElementById('faq-editor').style.display = 'block';
+            document.getElementById('faq-editor-title').textContent = 'Edit FAQ';
+            document.getElementById('faq-edit-id').value = faq.id;
+            document.getElementById('faq-edit-question').value = faq.question;
+            document.getElementById('faq-edit-answer').value = faq.answer;
+        }
+
+        function closeFaqEditor() {
+            document.getElementById('faq-editor').style.display = 'none';
+        }
+
+        function saveFaq() {
+            const id = document.getElementById('faq-edit-id').value;
+            const faq = {
+                id: id || 'faq-' + Date.now(),
+                question: document.getElementById('faq-edit-question').value,
+                answer: document.getElementById('faq-edit-answer').value
+            };
+
+            if (!faq.question || !faq.answer) {
+                showToast("Please fill in all fields", "error");
+                return;
+            }
+
+            if (id) {
+                const idx = CONFIG.faq.findIndex(f => f.id === id);
+                CONFIG.faq[idx] = faq;
+            } else {
+                CONFIG.faq.push(faq);
+            }
+
+            closeFaqEditor();
+            renderFaqAdmin();
+            renderFAQ();
+            showToast("FAQ saved!", "success");
+        }
+
+        function deleteFaq(id) {
+            if (!confirm('Delete this FAQ?')) return;
+            CONFIG.faq = CONFIG.faq.filter(f => f.id !== id);
+            renderFaqAdmin();
+            renderFAQ();
+            showToast("FAQ deleted", "success");
+        }
+
+        // ==================== REVIEWS ADMIN ====================
+        function renderReviewsAdmin() {
+            const container = document.getElementById('reviews-list-admin');
+            container.innerHTML = CONFIG.reviews.map(r => `
+                <div class="item-row">
+                    <img src="${r.image || 'https://via.placeholder.com/60'}" alt="${r.name}">
+                    <div class="item-info">
+                        <h5>${r.name} (${r.rating} stars)</h5>
+                        <p>${r.text.substring(0, 50)}...</p>
+                    </div>
+                    <div class="item-actions">
+                        <button onclick="editReview('${r.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="danger-btn" onclick="deleteReview('${r.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openReviewEditor() {
+            document.getElementById('review-editor').style.display = 'block';
+            document.getElementById('review-editor-title').textContent = 'Add Review';
+            document.getElementById('review-edit-id').value = '';
+            document.getElementById('review-edit-name').value = '';
+            document.getElementById('review-edit-location').value = '';
+            document.getElementById('review-edit-text').value = '';
+            document.getElementById('review-edit-rating').value = '5';
+            document.getElementById('review-edit-image').value = '';
+        }
+
+        function editReview(id) {
+            const review = CONFIG.reviews.find(r => r.id === id);
+            if (!review) return;
+            document.getElementById('review-editor').style.display = 'block';
+            document.getElementById('review-editor-title').textContent = 'Edit Review';
+            document.getElementById('review-edit-id').value = review.id;
+            document.getElementById('review-edit-name').value = review.name;
+            document.getElementById('review-edit-location').value = review.location;
+            document.getElementById('review-edit-text').value = review.text;
+            document.getElementById('review-edit-rating').value = review.rating;
+            document.getElementById('review-edit-image').value = review.image || '';
+        }
+
+        function closeReviewEditor() {
+            document.getElementById('review-editor').style.display = 'none';
+        }
+
+        function saveReview() {
+            const id = document.getElementById('review-edit-id').value;
+            const review = {
+                id: id || 'rev-' + Date.now(),
+                name: document.getElementById('review-edit-name').value,
+                location: document.getElementById('review-edit-location').value,
+                text: document.getElementById('review-edit-text').value,
+                rating: parseInt(document.getElementById('review-edit-rating').value),
+                image: document.getElementById('review-edit-image').value || 'https://via.placeholder.com/56'
+            };
+
+            if (!review.name || !review.text) {
+                showToast("Please fill in all required fields", "error");
+                return;
+            }
+
+            if (id) {
+                const idx = CONFIG.reviews.findIndex(r => r.id === id);
+                CONFIG.reviews[idx] = review;
+            } else {
+                CONFIG.reviews.push(review);
+            }
+
+            closeReviewEditor();
+            renderReviewsAdmin();
+            renderReviews();
+            showToast("Review saved!", "success");
+        }
+
+        function deleteReview(id) {
+            if (!confirm('Delete this review?')) return;
+            CONFIG.reviews = CONFIG.reviews.filter(r => r.id !== id);
+            renderReviewsAdmin();
+            renderReviews();
+            showToast("Review deleted", "success");
+        }
+
+        function updateBookingTimes(value) {
+            CONFIG.booking.availableTimes = value.split('\n').filter(t => t.trim());
+            renderBookingOptions();
+        }
+
+        // ==================== ADVANCED ====================
+        function exportConfig() {
+            const dataStr = JSON.stringify(CONFIG, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `safari-website-config-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("Configuration exported!", "success");
+        }
+
+        function importConfig(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    CONFIG = deepMerge(DEFAULT_CONFIG, imported);
+                    saveConfig();
+                    applyConfig();
+                    populateAdminFields();
+                    showToast("Configuration imported successfully!", "success");
+                } catch (err) {
+                    showToast("Invalid configuration file", "error");
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+
+        function resetToDefaults() {
+            if (!confirm('This will reset ALL your customizations. Are you sure?')) return;
+            CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+            saveConfig();
+            applyConfig();
+            populateAdminFields();
+            showToast("Reset to defaults", "success");
+        }
+
+        function clearLocalStorage() {
+            if (!confirm('This will delete ALL saved data. This cannot be undone!')) return;
+            localStorage.removeItem('safariWebsiteConfig');
+            location.reload();
+        }
+
+        // ==================== UTILITIES ====================
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Close modals on overlay click
+        document.getElementById('booking-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeBooking();
+        });
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+                if (e.key === 'ArrowRight') changeLightboxImage(1);
+            }
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Initialize
+        loadConfig();
+        applyConfig();
+    </script>
+</body>
+</html>
